@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Jorge Tec">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <title>Chart</title>
+  
+</head>
+<body>
+  <!-- chart -->
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <canvas id="myChart" width="400" height="300"></canvas>
+      </div>
+    </div>
+  </div>
+  <!-- Option 1: Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <!-- chart js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js" integrity="sha512-TW5s0IT/IppJtu76UbysrBH9Hy/5X41OTAbQuffZFU6lQ1rdcLHzpU5BzVvr/YFykoiMYZVWlr/PX1mDcfM9Qg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    let ctx = document.getElementById('myChart');
+    let myChart;
+    
+    const datas = {
+      labels: ['año 2', 'año 4', 'año 6', 'año 8', 'año 10'],
+        datasets: [
+          {
+            label: 'Inversion Inicial',
+            data: [100000,100000,100000,100000,100000],
+            backgroundColor: [
+                'rgb(205, 207, 207)',
+                'rgb(205, 207, 207)',
+                'rgb(205, 207, 207)',
+                'rgb(205, 207, 207)',
+                'rgb(205, 207, 207)',
+                'rgb(205, 207, 207)'
+            ]
+        },
+        {
+            label: 'Plusvalía est. acumulada',
+            data: [14490,31079.60,50073.04,71818.62,96715.14],
+            backgroundColor: [
+              'rgb(47, 202, 228)',
+              'rgb(47, 202, 228)',
+              'rgb(47, 202, 228)',
+              'rgb(47, 202, 228)',
+              'rgb(47, 202, 228)',
+              'rgb(47, 202, 228)',
+            ]
+        },
+        {
+            label: 'Renta est. acumulada',
+            data: [16560,35519.54,57226.33,82078.42,110531.58],
+            backgroundColor: [
+              'rgb(24, 124, 158)',
+              'rgb(24, 124, 158)',
+              'rgb(24, 124, 158)',
+              'rgb(24, 124, 158)',
+              'rgb(24, 124, 158)',
+              'rgb(24, 124, 158)'
+            ]
+        }
+      ]
+    }
+
+    const footer = (tooltipItems) => {
+      let sum = 0;
+
+      tooltipItems.forEach(function(tooltipItem) {
+        sum += tooltipItem.parsed.y;
+      });
+      return 'Sum: ' + sum;
+    };
+
+    myChart = new Chart(ctx,{
+				type: 'bar',
+				data: datas,
+				options: {
+          interaction: {
+            intersect: false,
+            mode: 'index',
+          },
+					plugins: {
+            tooltip: {
+              callbacks: {
+                footer: footer,
+              }
+            },
+						title: {
+							display: false,
+							text: 'Chart.js Bar Chart - Stacked'
+						},
+					},
+					responsive: true,
+						scales: {
+						x: {
+							stacked: true,
+						},
+						y: {
+							stacked: true
+						}
+					}
+				}
+				
+			});
+
+  </script>
+</body>
+</html>
